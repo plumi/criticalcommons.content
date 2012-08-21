@@ -1,4 +1,5 @@
 setuptools
+plone.app.dexterity
 plone.app.relationfield
 plone.namedfile
 plone.app.textfield
