@@ -12,6 +12,10 @@ class ICommentary(form.Schema):
     """A commentary.
     """
     
+    title = schema.TextLine(
+            title=_(u"Title"),
+        )
+
     summary = schema.Text(
             title=_(u"A short summary"),
         )
