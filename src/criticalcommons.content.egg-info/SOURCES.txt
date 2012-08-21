@@ -13,5 +13,9 @@ src/criticalcommons.content.egg-info/requires.txt
 src/criticalcommons.content.egg-info/top_level.txt
 src/criticalcommons/content/__init__.py
 src/criticalcommons/content/testing.py
+src/criticalcommons/content/content/__init__.py
+src/criticalcommons/content/content/commentary.py
+src/criticalcommons/content/content/lecture.py
+src/criticalcommons/content/content/project.py
 src/criticalcommons/content/tests/__init__.py
 src/criticalcommons/content/tests/test_example.py

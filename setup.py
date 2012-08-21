@@ -35,6 +35,7 @@ setup(name='criticalcommons.content',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'plone.app.dexterity',
           'plone.app.relationfield',
           'plone.namedfile',
           'plone.app.textfield',

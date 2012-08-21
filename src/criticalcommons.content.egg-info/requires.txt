@@ -1,4 +1,7 @@
 setuptools
+plone.app.relationfield
+plone.namedfile
+plone.app.textfield
 
 [test]
 plone.app.testing
