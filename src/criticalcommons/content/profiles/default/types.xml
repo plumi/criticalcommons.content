@@ -3,5 +3,6 @@
      <object name="Text commentary" meta_type="Dexterity FTI" />
      <object name="Lecture" meta_type="Dexterity FTI" />
      <object name="Project" meta_type="Dexterity FTI" />
+     <object name="Audio commentary" meta_type="Dexterity FTI" />
     </object>
 
