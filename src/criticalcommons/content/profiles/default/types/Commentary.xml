@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<object name="Text commentary" meta_type="Dexterity FTI"
+<object name="Commentary" meta_type="Dexterity FTI"
    i18n:domain="criticalcommons.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  
  <!-- Basic metadata -->
- <property name="title" i18n:translate="">Text commentary</property>
- <property name="description" i18n:translate="">A text commentary</property>
+ <property name="title" i18n:translate="">Commentary</property>
+ <property name="description" i18n:translate="">A commentary</property>
  <property name="allow_discussion">False</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
