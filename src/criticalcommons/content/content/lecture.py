@@ -16,16 +16,8 @@ class ILecture(form.Schema):
     """A lecture.
     """
     
-    title = schema.TextLine(
-            title=_(u"Name"),
-        )
-    
-    summary = schema.Text(
-            title=_(u"A short summary"),
-        )
-    
     fullDescription = RichText(
-            title=_(u"Full description"),
+            title=_(u"Lecture description"),
             required=True
         )
 
@@ -35,6 +27,7 @@ class ILecture(form.Schema):
             description=_(u"Select clips to create a playlist that accompanies this lecture. Start typing to search for relevant clips. You may include as many clips as you want. Clips may be added or deleted at any time."),
             default=[],
             value_type=RelationChoice(title=_(u"Related"),
-                                      source=ObjPathSourceBinder()),
+                                      source=ObjPathSourceBinder(portal_types='PlumiVideo')),
+                                      #source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__))),
             required=False,
         )

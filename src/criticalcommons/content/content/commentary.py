@@ -15,17 +15,9 @@ from criticalcommons.content import _
 class ICommentary(form.Schema):
     """A commentary.
     """
-    
-    title = schema.TextLine(
-            title=_(u"Title"),
-        )
 
-    summary = schema.Text(
-            title=_(u"Commentary summary"),
-        )
-    
-    commentary = RichText(
-            title=_(u"Commentary"),
+    textCommentary = RichText(
+            title=_(u"Text commentary"),
             required=True
         )
 
@@ -35,6 +27,7 @@ class ICommentary(form.Schema):
             description=_(u"Start typing in the field below to search for clips to which this commentary should be linked."),
             default=[],
             value_type=RelationChoice(title=_(u"Related"),
-                                      source=ObjPathSourceBinder()),
+                                      #source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__))),
+                                      source=ObjPathSourceBinder(portal_types='PlumiVideo')),
             required=False,
         )

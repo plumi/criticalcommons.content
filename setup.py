@@ -39,6 +39,8 @@ setup(name='criticalcommons.content',
           'plone.app.relationfield',
           'plone.namedfile',
           'plone.app.textfield',
+          'Products.json_migrator',
+          'collective.blog.star',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
