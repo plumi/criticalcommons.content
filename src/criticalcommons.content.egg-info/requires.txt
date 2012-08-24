@@ -3,7 +3,6 @@ plone.app.dexterity
 plone.app.relationfield
 plone.namedfile
 plone.app.textfield
-Products.json_migrator
 collective.blog.star
 
 [test]
