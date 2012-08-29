@@ -20,6 +20,8 @@
              zope.app.container.interfaces.IObjectRemovedEvent"
         handler="criticalcommons.content.subscribers.removeCommentary" />
 
+  <interface interface=".interfaces.ILectureLibrary" />
+
   <genericsetup:registerProfile
       name="default"
       title="criticalcommons.content"
