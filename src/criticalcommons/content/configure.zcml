@@ -7,6 +7,19 @@
 
   <five:registerPackage package="." initialize=".initialize" />
 
+  <include package="archetypes.schemaextender" />
+  <adapter factory=".clip.ClipExtender" />
+
+  <subscriber
+        for="criticalcommons.content.content.commentary.ICommentary
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="criticalcommons.content.subscribers.modifyCommentary" />
+
+  <subscriber
+        for="criticalcommons.content.content.commentary.ICommentary
+             zope.app.container.interfaces.IObjectRemovedEvent"
+        handler="criticalcommons.content.subscribers.removeCommentary" />
+
   <genericsetup:registerProfile
       name="default"
       title="criticalcommons.content"

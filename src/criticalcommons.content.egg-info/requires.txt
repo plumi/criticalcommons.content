@@ -3,7 +3,9 @@ plone.app.dexterity
 plone.app.relationfield
 plone.namedfile
 plone.app.textfield
+archetypes.schemaextender
 collective.blog.star
+plone.app.referenceablebehavior
 
 [test]
 plone.app.testing
