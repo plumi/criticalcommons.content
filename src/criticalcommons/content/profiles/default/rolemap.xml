@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<rolemap>
+    <roles>
+        <role name="AdvancedUser"/>
+    </roles>
+    <permissions>
+        <permission name="View" acquire="True">
+            <role name="Reader"/>
+            <role name="Editor"/>
+            <role name="Contributor"/>
+            <role name="AdvancedUser"/>
+        </permission>
+        <permission name="criticalcommons.content: Can Download" acquire="True">
+            <role name="Editor"/>
+            <role name="Contributor"/>
+            <role name="AdvancedUser"/>
+        </permission>
+    </permissions>
+</rolemap>

@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="criticalcommons.content">
+
+    <permission
+        id="criticalcommons.content.CanDownload"
+        title="criticalcommons.content: Can Download"
+        />
+        
+</configure>

@@ -8,7 +8,11 @@
   <five:registerPackage package="." initialize=".initialize" />
 
   <include package="archetypes.schemaextender" />
+  <include package="collective.autopermission" />
+
   <adapter factory=".clip.ClipExtender" />
+
+  <include file="permissions.zcml" />
 
   <subscriber
         for="criticalcommons.content.content.commentary.ICommentary
