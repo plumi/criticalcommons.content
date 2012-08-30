@@ -2,6 +2,8 @@
 
 from zope.i18nmessageid import MessageFactory
 
+import criticalcommons.content.patch
+
 _ = MessageFactory("criticalcommons.content")
 
 def initialize(context):

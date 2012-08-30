@@ -29,5 +29,5 @@
       description="Installs the criticalcommons.content package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
 </configure>
