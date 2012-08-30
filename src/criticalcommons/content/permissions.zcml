@@ -6,5 +6,10 @@
         id="criticalcommons.content.CanDownload"
         title="criticalcommons.content: Can Download"
         />
+
+    <permission
+        id="criticalcommons.content.AddCommentary"
+        title="criticalcommons.content: Add Commentary"
+        />
         
 </configure>

@@ -14,6 +14,14 @@
             <role name="Editor"/>
             <role name="Contributor"/>
             <role name="AdvancedUser"/>
+            <role name="Manager"/>
+        </permission>
+        <permission name="criticalcommons.content: Add Commentary" acquire="True">
+            <role name="Authenticated"/>
+            <role name="Editor"/>
+            <role name="Contributor"/>
+            <role name="AdvancedUser"/>
+            <role name="Manager"/>
         </permission>
     </permissions>
 </rolemap>
