@@ -42,6 +42,7 @@ setup(name='criticalcommons.content',
           'archetypes.schemaextender',
           'collective.blog.star',
           'plone.app.referenceablebehavior',
+          'collective.autopermission',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
