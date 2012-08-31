@@ -32,9 +32,9 @@ class IClip(form.Schema):
                               description=_(u"Describe your video."),
                               )
 
-    DateProduced = schema.TextLine(title=_(u"Date Produced"),
+    DateProduced = schema.TextLine(title=_(u"Year Produced"),
                                required=True,
-                               description=_(u"The date the video content was released."),
+                               description=_(u"The year the media content was released."),
                                constraint=validate_date,
                                )
 
