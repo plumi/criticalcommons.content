@@ -17,9 +17,9 @@ class IClip(form.Schema):
 
     form.fieldset('categorize',
                   label=u"Categorise",
-                  fields=['Genre', 'Country', 'Topics', 'Tags', 'Location',
+                  fields=['Genre', 'Country', 'Topics', 'Tags',
                           'Director', 'Producer', 'Email', 'Organisation',
-                          'ProductionCompany', 'Website']
+                          'ProductionCompany']
                   )
 
     Title = schema.TextLine(title=_(u"Title"),
@@ -29,19 +29,14 @@ class IClip(form.Schema):
 
     Description = schema.Text(title=_(u"Short summary"),
                               required=True,
-                              max_length=160,
-                              description=_(u"Describe your video in 160 characters."),
+                              description=_(u"Describe your video."),
                               )
 
-    DateProduced = schema.Date(title=_(u"Date Produced"),
+    DateProduced = schema.TextLine(title=_(u"Date Produced"),
                                required=True,
                                description=_(u"The date the video content was released."),
+                               constraint=validate_date,
                                )
-
-    form.widget(FullDescription=WysiwygFieldWidget)
-    FullDescription = schema.Text(title=_(u"Full Description"),
-                                  required=False,
-                                  )
 
     #FIX: find a more native validation -eg provided by zope.schema
     Thumbnail = schema.Bytes(title=u'Add thumbnail',
@@ -64,11 +59,6 @@ class IClip(form.Schema):
 
     FilmName = schema.TextLine(title=_(u"Name of original media"), description=_(u"Name of the film that the clip comes from"))
 
-    Location = schema.TextLine(title=_(u"Location"),
-                               description=_(u"e.g. City or Region."),
-                               required=False,
-                               )
-
     Topics = schema.List(title=_(u"Topics"),
                          required=False,
                          description=_(u"Select topics and click arrows to add or remove"),
@@ -81,11 +71,7 @@ class IClip(form.Schema):
                            required=False,
                            )
 
-    Director = schema.TextLine(title=_(u"Director"),
-                               required=False,
-                               )
-
-    Producer = schema.TextLine(title=_(u"Producer"),
+    Director = schema.TextLine(title=_(u"Filmmaker/Creator"),
                                required=False,
                                )
 
@@ -94,18 +80,24 @@ class IClip(form.Schema):
                             constraint=validate_address,
                             )
 
-    Organisation = schema.TextLine(title=_(u"Project Name"),
-                                   required=False,
-                                   )
-
     ProductionCompany = schema.TextLine(title=_(u"Production Company"),
                                         required=False,
                                         )
 
-    Website = schema.TextLine(title=_(u"Website URL"),
-                         required=False,
-                         constraint=validate_URI,
-                         )
+def newcreate_object(self, context, data, uid, subject):
+    context.invokeFactory('PlumiVideo', id=uid,
+                           description=data['Description'],
+                           DateProduced=data['DateProduced'],
+                           thumbnailImage=data['Thumbnail'],
+                           Genre=data['Genre'],
+                           Countries=data['Country'],
+                           Categories=data['Topics'],
+                           subject=subject,
+                           Director=data['Director'] or '',
+                           ProducerEmail=data['Email'] or '',
+                           ProductionCompanyName=data['ProductionCompany'] or '',
+                           FilmName=data['FilmName'] or '',
+                           )
 
 
 def newUpdateWidgets(self):
@@ -114,3 +106,4 @@ def newUpdateWidgets(self):
 from plumi.content.browser.forms import VideoAddForm
 VideoAddForm.schema = IClip
 VideoAddForm.updateWidgets = newUpdateWidgets
+VideoAddForm.create_object = newcreate_object
