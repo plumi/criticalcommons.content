@@ -10,9 +10,8 @@
             <role name="Contributor"/>
             <role name="AdvancedUser"/>
         </permission>
-        <permission name="criticalcommons.content: Can Download" acquire="True">
+        <permission name="criticalcommons.content: Can Download" acquire="False">
             <role name="Editor"/>
-            <role name="Contributor"/>
             <role name="AdvancedUser"/>
             <role name="Manager"/>
         </permission>
@@ -20,6 +19,11 @@
             <role name="Authenticated"/>
             <role name="Editor"/>
             <role name="Contributor"/>
+            <role name="AdvancedUser"/>
+            <role name="Manager"/>
+        </permission>
+        <permission name="criticalcommons.content: Add Media" acquire="False">
+            <role name="Editor"/>
             <role name="AdvancedUser"/>
             <role name="Manager"/>
         </permission>

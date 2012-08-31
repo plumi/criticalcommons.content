@@ -12,4 +12,9 @@
         title="criticalcommons.content: Add Commentary"
         />
         
+    <permission
+        id="criticalcommons.content.AddMedia"
+        title="criticalcommons.content: Add Media"
+        />
+        
 </configure>
