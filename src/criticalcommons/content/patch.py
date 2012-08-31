@@ -75,6 +75,10 @@ class IClip(form.Schema):
                                required=False,
                                )
 
+    Distributor = schema.TextLine(title=_(u"Media Source"),
+                               required=False,
+                               )
+
     Email = schema.TextLine(title=_(u"Email Address"),
                             required=False,
                             constraint=validate_address,
@@ -94,6 +98,7 @@ def newcreate_object(self, context, data, uid, subject):
                            Categories=data['Topics'],
                            subject=subject,
                            Director=data['Director'] or '',
+                           Distributor=data['Distributor'] or '',
                            ProducerEmail=data['Email'] or '',
                            ProductionCompanyName=data['ProductionCompany'] or '',
                            FilmName=data['FilmName'] or '',
