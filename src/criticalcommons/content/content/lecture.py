@@ -9,6 +9,7 @@ from z3c.relationfield.schema import RelationList
 from z3c.relationfield.schema import RelationChoice
 from plone.formwidget.autocomplete import AutocompleteFieldWidget
 from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.namedfile.field import NamedImage
 
 from criticalcommons.content import _
 
@@ -19,6 +20,12 @@ class ILecture(form.Schema):
     fullDescription = RichText(
             title=_(u"Lecture description"),
             required=True
+        )
+
+    thumbnailImage = NamedImage(
+            title=_(u"Lecture Thumbnail"),
+            required=True,
+            description=_(u"The thumbnail image for the lecture"),
         )
 
     form.widget(relatedItems=AutocompleteFieldWidget)
