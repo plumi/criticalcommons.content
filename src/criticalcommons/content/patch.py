@@ -79,15 +79,6 @@ class IClip(form.Schema):
                                required=False,
                                )
 
-    Email = schema.TextLine(title=_(u"Email Address"),
-                            required=False,
-                            constraint=validate_address,
-                            )
-
-    ProductionCompany = schema.TextLine(title=_(u"Production Company"),
-                                        required=False,
-                                        )
-
 def newcreate_object(self, context, data, uid, subject):
     context.invokeFactory('PlumiVideo', id=uid,
                            description=data['Description'],
@@ -99,8 +90,6 @@ def newcreate_object(self, context, data, uid, subject):
                            subject=subject,
                            Director=data['Director'] or '',
                            Distributor=data['Distributor'] or '',
-                           ProducerEmail=data['Email'] or '',
-                           ProductionCompanyName=data['ProductionCompany'] or '',
                            FilmName=data['FilmName'] or '',
                            )
 
