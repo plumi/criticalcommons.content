@@ -75,10 +75,6 @@ class IClip(form.Schema):
                                required=False,
                                )
 
-    Distributor = schema.TextLine(title=_(u"Media Source"),
-                               required=False,
-                               )
-
 def newcreate_object(self, context, data, uid, subject):
     context.invokeFactory('PlumiVideo', id=uid,
                            description=data['Description'],
@@ -89,7 +85,6 @@ def newcreate_object(self, context, data, uid, subject):
                            Categories=data['Topics'],
                            subject=subject,
                            Director=data['Director'] or '',
-                           Distributor=data['Distributor'] or '',
                            FilmName=data['FilmName'] or '',
                            )
 
