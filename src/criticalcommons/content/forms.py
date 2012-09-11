@@ -1,3 +1,4 @@
+import DateTime
 from zope import schema
 from zope.interface import Interface
 from z3c.form import form, field, button
@@ -39,7 +40,7 @@ class CommentaryForm(form.Form):
         normalizer = getUtility(IIDNormalizer)
         try:
             target_folder = home.commentaries
-            new_id = target_folder.invokeFactory(id=str(DateTime().millis()), type_name='Commentary', title=title)
+            new_id = target_folder.invokeFactory(id=str(DateTime.DateTime().millis()), type_name='Commentary', title=title)
             obj = target_folder[new_id]
             obj.textCommentary = RichTextValue(unicode(body), 'text/html', 'text/html', 'utf-8')
             self.context.setRelatedItems(self.context.getRelatedItems() + [obj])
@@ -50,7 +51,7 @@ class CommentaryForm(form.Form):
 
         wft = getToolByName(self.context, 'portal_workflow')
         state = wft.getInfoFor(self.context, 'review_state')
-        if 'state' == private:
+        if state == "private":
             wft.doActionFor(self.context, 'submit')
 
 CommentaryView = wrap_form(CommentaryForm)
