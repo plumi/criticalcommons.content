@@ -59,7 +59,7 @@ class CommentaryForm(form.Form):
             return
         #used to save the related items
         self.context.reindexObject()
-        obj.context.reindexObject()
+        obj.reindexObject()
         wft = getToolByName(self.context, 'portal_workflow')
         state = wft.getInfoFor(self.context, 'review_state')
         if state == "private":
