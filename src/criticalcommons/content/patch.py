@@ -38,33 +38,7 @@ class IClip(form.Schema):
                                constraint=validate_date,
                                )
 
-    #FIX: find a more native validation -eg provided by zope.schema
-    Thumbnail = schema.Bytes(title=u'Add thumbnail',
-                             constraint=validate_image,
-                             description=u"We will automatically generate an image, but you may prefer to upload your own",
-                             required=False,
-                             )
-
-    Genre = schema.Choice(title=_(u"Genre"),
-                          required=False,
-                          source=get_video_genres,
-                          default='none',
-                          )
-
-    Country = schema.Choice(title=_(u"Country"),
-                            required=False,
-                            default='XX',
-                            source=get_video_countries
-                            )
-
     FilmName = schema.TextLine(title=_(u"Name of original media"), description=_(u"Name of the film that the clip comes from"))
-
-    Topics = schema.List(title=_(u"Topics"),
-                         required=False,
-                         description=_(u"Select topics and click arrows to add or remove"),
-                         value_type=schema.Choice(source=get_video_categories),
-                         default=[],
-                         )
 
     Tags = schema.TextLine(title=_(u"Tags"),
                            description=_(u"Seperate with comma. Eg tag1, tag2, tag4"),
@@ -78,6 +52,32 @@ class IClip(form.Schema):
     Distributor = schema.TextLine(title=_(u"Media Source"),
                                required=False,
                                )
+
+    Genre = schema.Choice(title=_(u"Genre"),
+                          required=False,
+                          source=get_video_genres,
+                          default='none',
+                          )
+
+    Country = schema.Choice(title=_(u"Country"),
+                            required=False,
+                            default='XX',
+                            source=get_video_countries
+                            )
+
+    Topics = schema.List(title=_(u"Topics"),
+                         required=False,
+                         description=_(u"Select topics and click arrows to add or remove"),
+                         value_type=schema.Choice(source=get_video_categories),
+                         default=[],
+                         )
+
+    #FIX: find a more native validation -eg provided by zope.schema
+    Thumbnail = schema.Bytes(title=u'Add thumbnail',
+                             constraint=validate_image,
+                             description=u"We will automatically generate an image, but you may prefer to upload your own",
+                             required=False,
+                             )
 
 def newcreate_object(self, context, data, uid, subject):
     context.invokeFactory('PlumiVideo', id=uid,

@@ -36,4 +36,12 @@ def modifyCommentary(obj, event):
         if not exists:
             rel.append(obj)
         video.setRelatedItems(rel)
-
+        try:
+            #publish the video, if it is private
+            wft = getToolByName(video, 'portal_workflow')
+            state = wft.getInfoFor(video, 'review_state')
+            if state == "private":
+                wft.doActionFor(video, 'submit')
+                wft.doActionFor(video, 'publish')
+        except:
+            pass

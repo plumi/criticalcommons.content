@@ -43,12 +43,23 @@ class CommentaryForm(form.Form):
             new_id = target_folder.invokeFactory(id=str(DateTime.DateTime().millis()), type_name='Commentary', title=title)
             obj = target_folder[new_id]
             obj.textCommentary = RichTextValue(unicode(body), 'text/html', 'text/html', 'utf-8')
-            self.context.setRelatedItems(self.context.getRelatedItems() + [obj])
+            RelatedItems = self.context.getRelatedItems()
+            RelatedItems.append(obj)
+            self.context.setRelatedItems(RelatedItems)
+            obj.setRelatedItems(self.context) 
+            #also add the video to the commentary's related items, to be used on the subscribers for when deleting a commentary
+            wft = getToolByName(obj, 'portal_workflow')
+            try:
+                wft.doActionFor(obj, 'submit')
+                wft.doActionFor(obj, 'publish')
+            except:
+                pass
         except Exception as e:
             self.status = _(u"Failed to publish commentary")
-            print e
             return
-
+        #used to save the related items
+        self.context.reindexObject()
+        obj.context.reindexObject()
         wft = getToolByName(self.context, 'portal_workflow')
         state = wft.getInfoFor(self.context, 'review_state')
         if state == "private":
