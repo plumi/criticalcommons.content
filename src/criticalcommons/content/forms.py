@@ -46,8 +46,11 @@ class CommentaryForm(form.Form):
             RelatedItems = self.context.getRelatedItems()
             RelatedItems.append(obj)
             self.context.setRelatedItems(RelatedItems)
-            obj.setRelatedItems(self.context) 
+            #used to save the related items
             #also add the video to the commentary's related items, to be used on the subscribers for when deleting a commentary
+            self.context.reindexObject()
+            obj.setRelatedItems(self.context) 
+            obj.reindexObject()
             wft = getToolByName(obj, 'portal_workflow')
             try:
                 wft.doActionFor(obj, 'submit')
@@ -57,9 +60,7 @@ class CommentaryForm(form.Form):
         except Exception as e:
             self.status = _(u"Failed to publish commentary")
             return
-        #used to save the related items
-        self.context.reindexObject()
-        obj.reindexObject()
+
         wft = getToolByName(self.context, 'portal_workflow')
         state = wft.getInfoFor(self.context, 'review_state')
         if state == "private":
