@@ -35,7 +35,7 @@ class CommentaryForm(form.Form):
         existing = [i for i in self.context.getRelatedItems() if i.portal_type=='Commentary']
         dupes = [d for d in existing if d.Title() == title]
         if len(dupes):
-            self.status = _(u"A commentary with the same title already exists")
+            self.status = _(u"The commentary has been created")
             return
         normalizer = getUtility(IIDNormalizer)
         try:
@@ -49,6 +49,7 @@ class CommentaryForm(form.Form):
             #used to save the related items
             #also add the video to the commentary's related items, to be used on the subscribers for when deleting a commentary
             self.context.reindexObject()
+            #XXX doesnt work. The video is not saved as related item on the commentary
             obj.setRelatedItems(self.context) 
             obj.reindexObject()
             wft = getToolByName(obj, 'portal_workflow')
