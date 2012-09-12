@@ -13,6 +13,8 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from plone.app.textfield.value import RichTextValue
+from zope.intid.interfaces import IIntIds
+from z3c.relationfield.relation import RelationValue
 
 
 class ICommentary(Interface):
@@ -49,9 +51,9 @@ class CommentaryForm(form.Form):
             #used to save the related items
             #also add the video to the commentary's related items, to be used on the subscribers for when deleting a commentary
             self.context.reindexObject()
-            #XXX doesnt work. The video is not saved as related item on the commentary
-            obj.setRelatedItems(self.context) 
-            obj.reindexObject()
+            intid = getUtility(IIntIds).getId(self.context)
+            relatedVids = [RelationValue(intid)]
+            obj.relatedItems = relatedVids
             wft = getToolByName(obj, 'portal_workflow')
             try:
                 wft.doActionFor(obj, 'submit')
@@ -64,7 +66,12 @@ class CommentaryForm(form.Form):
 
         wft = getToolByName(self.context, 'portal_workflow')
         state = wft.getInfoFor(self.context, 'review_state')
-        if state == "private":
-            wft.doActionFor(self.context, 'submit')
+        try:
+            if state == "private":
+                wft.doActionFor(self.context, 'show')
+                wft.doActionFor(self.context, 'submit')
+                wft.doActionFor(self.context, 'publish')
+        except: 
+            pass
 
 CommentaryView = wrap_form(CommentaryForm)

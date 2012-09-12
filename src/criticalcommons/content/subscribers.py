@@ -41,6 +41,7 @@ def modifyCommentary(obj, event):
             wft = getToolByName(video, 'portal_workflow')
             state = wft.getInfoFor(video, 'review_state')
             if state == "private":
+                wft.doActionFor(video, 'show')
                 wft.doActionFor(video, 'submit')
                 wft.doActionFor(video, 'publish')
         except:
