@@ -39,34 +39,36 @@ def removeCommentary(obj, event):
         pass      
 
 def modifyCommentary(obj, event):
-    for item in obj.relatedItems:
-        video = item.to_object
-        rel = video.getRelatedItems()
-        exists = len([r for r in rel if r == obj])
-        if not exists:
-            rel.append(obj)
-        video.setRelatedItems(rel)
-        video.reindexObject()
-        try:
-            #publish the video, if it is private
-            wft = getToolByName(video, 'portal_workflow')
-            state = wft.getInfoFor(video, 'review_state')
-            if state == "private":
-                try:
-                    wft.doActionFor(video, 'show')
-                except:
-                    pass
-                try:
-                    wft.doActionFor(video, 'submit')
-                except:
-                    pass
-                try:
-                    wft.doActionFor(video, 'publish')
-                except:
-                    pass
-        except:
-            pass
-
+    try:
+        for item in obj.relatedItems:
+            video = item.to_object
+            rel = video.getRelatedItems()
+            exists = len([r for r in rel if r == obj])
+            if not exists:
+                rel.append(obj)
+            video.setRelatedItems(rel)
+            video.reindexObject()
+            try:
+                #publish the video, if it is private
+                wft = getToolByName(video, 'portal_workflow')
+                state = wft.getInfoFor(video, 'review_state')
+                if state == "private":
+                    try:
+                        wft.doActionFor(video, 'show')
+                    except:
+                        pass
+                    try:
+                        wft.doActionFor(video, 'submit')
+                    except:
+                        pass
+                    try:
+                        wft.doActionFor(video, 'publish')
+                    except:
+                        pass
+            except:
+                pass
+    except:
+        pass
 def modifyPlumiVideo(obj, event):
     'when editing a Video, check if there are commentaries added, and associate the Video with them'
     commentaries = [i for i in obj.getRelatedItems() if i.portal_type == 'Commentary']
