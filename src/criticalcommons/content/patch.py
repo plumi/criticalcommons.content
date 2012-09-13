@@ -25,6 +25,7 @@ class IClip(form.Schema):
     Title = schema.TextLine(title=_(u"Title"),
                             max_length=160,
                             required=True,
+                            description=_(u"Please provide a title for your contribution to Critical Commons."),
                             )
 
     Description = schema.Text(title=_(u"Media Description"),
