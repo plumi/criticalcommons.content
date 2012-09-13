@@ -24,6 +24,11 @@
              zope.app.container.interfaces.IObjectRemovedEvent"
         handler="criticalcommons.content.subscribers.removeCommentary" />
 
+  <subscriber 
+       for="plumi.content.interfaces.plumivideo.IPlumiVideo
+            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+       handler="criticalcommons.content.subscribers.modifyPlumiVideo" />
+
   <interface interface=".interfaces.ILectureLibrary" />
 
   <genericsetup:registerProfile
