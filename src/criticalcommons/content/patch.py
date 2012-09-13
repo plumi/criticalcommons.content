@@ -101,3 +101,4 @@ from plumi.content.browser.forms import VideoAddForm
 VideoAddForm.schema = IClip
 VideoAddForm.updateWidgets = newUpdateWidgets
 VideoAddForm.create_object = newcreate_object
+VideoAddForm.label = u"Share Media"
