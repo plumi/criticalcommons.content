@@ -13,6 +13,8 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from plone.app.textfield.value import RichTextValue
+from zope.intid.interfaces import IIntIds
+from z3c.relationfield.relation import RelationValue
 
 
 class ICommentary(Interface):
@@ -35,7 +37,7 @@ class CommentaryForm(form.Form):
         existing = [i for i in self.context.getRelatedItems() if i.portal_type=='Commentary']
         dupes = [d for d in existing if d.Title() == title]
         if len(dupes):
-            self.status = _(u"A commentary with the same title already exists")
+            self.status = _(u"The commentary has been created")
             return
         normalizer = getUtility(IIDNormalizer)
         try:
@@ -46,8 +48,12 @@ class CommentaryForm(form.Form):
             RelatedItems = self.context.getRelatedItems()
             RelatedItems.append(obj)
             self.context.setRelatedItems(RelatedItems)
-            obj.setRelatedItems(self.context) 
+            #used to save the related items
             #also add the video to the commentary's related items, to be used on the subscribers for when deleting a commentary
+            self.context.reindexObject()
+            intid = getUtility(IIntIds).getId(self.context)
+            relatedVids = [RelationValue(intid)]
+            obj.relatedItems = relatedVids
             wft = getToolByName(obj, 'portal_workflow')
             try:
                 wft.doActionFor(obj, 'submit')
@@ -57,12 +63,15 @@ class CommentaryForm(form.Form):
         except Exception as e:
             self.status = _(u"Failed to publish commentary")
             return
-        #used to save the related items
-        self.context.reindexObject()
-        obj.reindexObject()
+
         wft = getToolByName(self.context, 'portal_workflow')
         state = wft.getInfoFor(self.context, 'review_state')
-        if state == "private":
-            wft.doActionFor(self.context, 'submit')
+        try:
+            if state == "private":
+                wft.doActionFor(self.context, 'show')
+                wft.doActionFor(self.context, 'submit')
+                wft.doActionFor(self.context, 'publish')
+        except: 
+            pass
 
 CommentaryView = wrap_form(CommentaryForm)
