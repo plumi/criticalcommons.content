@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="criticalcomons.content.various"
+               version="20120913-01"
+               handler="criticalcommons.content.setuphandlers.setupVarious"
+               title="criticalcommons.content: miscellaneous import steps">
+    <dependency step="structure" />
+  </import-step>
+</import-steps>

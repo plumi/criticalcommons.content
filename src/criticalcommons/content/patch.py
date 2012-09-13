@@ -27,29 +27,30 @@ class IClip(form.Schema):
                             required=True,
                             )
 
-    Description = schema.Text(title=_(u"Short summary"),
+    Description = schema.Text(title=_(u"Media Description"),
                               required=True,
-                              description=_(u"Describe your video."),
+                              description=_(u"Briefly describe the media and its critical context."),
                               )
 
     DateProduced = schema.TextLine(title=_(u"Year Produced"),
                                required=True,
-                               description=_(u"The year the media content was released."),
+                               description=_(u"The year this media was originally created."),
                                constraint=validate_date,
                                )
 
-    FilmName = schema.TextLine(title=_(u"Name of original media"), description=_(u"Name of the film that the clip comes from"))
+    FilmName = schema.TextLine(title=_(u"Name of original media"), description=_(u"What is the title of the work this media comes from?"))
 
     Tags = schema.TextLine(title=_(u"Tags"),
-                           description=_(u"Seperate with comma. Eg tag1, tag2, tag4"),
+                           description=_(u"Separate tags with commas, e.g., race, class, gender, editing, lighting, framing, etc."),
                            required=False,
                            )
 
     Director = schema.TextLine(title=_(u"Filmmaker/Creator"),
-                               required=False,
+                               required=True,
                                )
 
-    Distributor = schema.TextLine(title=_(u"Media Source"),
+    Distributor = schema.TextLine(title=_(u"Media Distributor"),
+                               description=_(u"Where (or from whom) is the original media available?"),
                                required=False,
                                )
 
@@ -61,7 +62,7 @@ class IClip(form.Schema):
 
     Country = schema.Choice(title=_(u"Country"),
                             required=False,
-                            default='XX',
+                            default='US',
                             source=get_video_countries
                             )
 
