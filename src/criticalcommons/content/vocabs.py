@@ -250,22 +250,6 @@ vocab_set['video_countries'] = (
         )
 
 vocab_set['video_categories'] = (
-         ('film', _(u'Film')),
-         ('TV', _(u'TV')),
-         ('short', _(u'Short')),
-         ('documentary', _(u'Documentary')),
-         ('ad', _(u'Ad')),
-         ('animation', _(u'Animation')),
-         ('experimental', _(u'Experimental')),
-         ('music_video', _(u'Music Video')),
-         ('art', _(u'Art')),
-         ('news', _(u'News')),
-         ('music', _(u'Music')),
-         ('speech', _(u'Speech')),
-        )
-
-vocab_set['video_genre'] = (
-         ('none', _(u'-- None --')),
          ('media_studies', _(u'Media studies')),
          ('race', _(u'Race')),
          ('class', _(u'Class')),
@@ -291,5 +275,21 @@ vocab_set['video_genre'] = (
          ('international', _(u'International')),
          ('technology', _(u'Technology')),
          ('economics', _(u'Economics')),
+        )
+
+vocab_set['video_genre'] = (
+         ('none', _(u'-- None --')),
+         ('film', _(u'Film')),
+         ('TV', _(u'TV')),
+         ('short', _(u'Short')),
+         ('documentary', _(u'Documentary')),
+         ('ad', _(u'Ad')),
+         ('animation', _(u'Animation')),
+         ('experimental', _(u'Experimental')),
+         ('music_video', _(u'Music Video')),
+         ('art', _(u'Art')),
+         ('news', _(u'News')),
+         ('music', _(u'Music')),
+         ('speech', _(u'Speech')),
         )
 
