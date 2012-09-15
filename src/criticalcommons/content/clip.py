@@ -18,7 +18,7 @@ class ClipExtender(object):
     implements(ISchemaExtender)
 
     fields = [
-             MyStringField("filmName",
+             MyStringField("filmName", required=True, 
 		widget = StringWidget(label="Name of film", description="Name of the film that the clip comes from")),
              ]
 

@@ -3,7 +3,7 @@ _ = MessageFactory("plumi")
 
 vocab_set = {}
 
-taxonomy_sub_folder={'topic':'video_categories','genre':'video_genre','callouts':'submission_categories','countries':'video_countries'}
+taxonomy_sub_folder={'genre':'video_genre','callouts':'submission_categories'}
 
 vocab_set['video_countries'] = (
          ('XX', _('-- International --')),

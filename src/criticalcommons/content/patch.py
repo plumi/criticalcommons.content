@@ -17,7 +17,7 @@ class IClip(form.Schema):
 
     form.fieldset('categorize',
                   label=u"Categorise",
-                  fields=['Genre', 'Country', 'Topics', 'Tags',
+                  fields=['Genre', 'Tags',
                           'Director', 'Producer', 'Email', 'Organisation',
                           'ProductionCompany']
                   )
@@ -33,33 +33,41 @@ class IClip(form.Schema):
                               description=_(u"Briefly describe the media and its critical context."),
                               )
 
+    #FIX: find a more native validation -eg provided by zope.schema
+    Thumbnail = schema.Bytes(title=u'Add thumbnail',
+                             constraint=validate_image,
+                             description=u"We will automatically generate an image, but you may prefer to upload your own",
+                             required=False,
+                             )
+
+    filmName = schema.TextLine(title=_(u"Name of original media"), required=True, description=_(u"What is the title of the work this media comes from?"))
+
+    Director = schema.TextLine(title=_(u"Filmmaker/Creator"),
+                               required=True,
+                               )
+
     DateProduced = schema.TextLine(title=_(u"Year Produced"),
                                required=True,
                                description=_(u"The year this media was originally created."),
                                constraint=validate_date,
                                )
 
-    FilmName = schema.TextLine(title=_(u"Name of original media"), description=_(u"What is the title of the work this media comes from?"))
-
     Tags = schema.TextLine(title=_(u"Tags"),
                            description=_(u"Separate tags with commas, e.g., race, class, gender, editing, lighting, framing, etc."),
                            required=False,
                            )
 
-    Director = schema.TextLine(title=_(u"Filmmaker/Creator"),
-                               required=True,
-                               )
-
-    Distributor = schema.TextLine(title=_(u"Media Distributor"),
-                               description=_(u"Where (or from whom) is the original media available?"),
-                               required=False,
-                               )
 
     Genre = schema.Choice(title=_(u"Genre"),
                           required=False,
                           source=get_video_genres,
                           default='none',
                           )
+
+    Distributor = schema.TextLine(title=_(u"Media Distributor"),
+                               description=_(u"Where (or from whom) is the original media available?"),
+                               required=False,
+                               )
 
     Country = schema.Choice(title=_(u"Country"),
                             required=False,
@@ -74,25 +82,19 @@ class IClip(form.Schema):
                          default=[],
                          )
 
-    #FIX: find a more native validation -eg provided by zope.schema
-    Thumbnail = schema.Bytes(title=u'Add thumbnail',
-                             constraint=validate_image,
-                             description=u"We will automatically generate an image, but you may prefer to upload your own",
-                             required=False,
-                             )
 
 def newcreate_object(self, context, data, uid, subject):
     context.invokeFactory('PlumiVideo', id=uid,
                            description=data['Description'],
                            DateProduced=data['DateProduced'],
+                           filmName=data['filmName'] or '',
                            thumbnailImage=data['Thumbnail'],
                            Genre=data['Genre'],
                            Countries=data['Country'],
                            Categories=data['Topics'],
-                           subject=subject,
+                           subject=data['Tags'] and data['Tags'].split(',') or '',
                            Director=data['Director'] or '',
-                           Distributor=data['Distributor'] or '',
-                           FilmName=data['FilmName'] or '',
+                           Distributor=data['Distributor'] or ''
                            )
 
 
