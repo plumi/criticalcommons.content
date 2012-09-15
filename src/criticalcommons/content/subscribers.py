@@ -1,4 +1,4 @@
-from zope.lifecycleevent.interfaces import  IObjectModifiedEvent
+from zope.lifecycleevent.interfaces import  IObjectModifiedEvent, IObjectCreatedEvent
 from zope.app.container.interfaces import IObjectRemovedEvent
 from Products.CMFCore.utils import getToolByName
 from criticalcommons.content.content.commentary import ICommentary

@@ -21,6 +21,11 @@
 
   <subscriber
         for="criticalcommons.content.content.commentary.ICommentary
+             zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        handler="criticalcommons.content.subscribers.modifyCommentary" />
+
+  <subscriber
+        for="criticalcommons.content.content.commentary.ICommentary
              zope.app.container.interfaces.IObjectRemovedEvent"
         handler="criticalcommons.content.subscribers.removeCommentary" />
 
