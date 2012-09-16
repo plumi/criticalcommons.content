@@ -80,7 +80,12 @@ def modifyPlumiVideo(obj, event):
             if v == obj:
                 exists.append(v)
         if not exists:
-            intid = getUtility(IIntIds).getId(obj)
-            relatedVids = [RelationValue(intid)] + rel
-            commentary.relatedItems = relatedVids
+            try:
+                intid = getUtility(IIntIds).getId(obj)
+                relatedVids = [RelationValue(intid)] + rel
+                commentary.relatedItems = relatedVids
+            except KeyError:
+                to_id = getUtility(IIntIds).register(obj)
+                relatedVids = [RelationValue(to_id)] + rel
+                commentary.relatedItems = relatedVids
 
