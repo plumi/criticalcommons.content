@@ -15,6 +15,7 @@ from zope.component import getUtility
 from plone.app.textfield.value import RichTextValue
 from zope.intid.interfaces import IIntIds
 from z3c.relationfield.relation import RelationValue
+from AccessControl.SecurityManagement import newSecurityManager
 
 
 class ICommentary(Interface):
@@ -52,14 +53,11 @@ class CommentaryForm(form.Form):
             #also add the video to the commentary's related items, to be used on the subscribers for when deleting a commentary
             self.context.reindexObject()
             wft = getToolByName(obj, 'portal_workflow')
-            try:
-                wft.doActionFor(obj, 'submit')
-            except:
-                pass
-            try:
-                wft.doActionFor(obj, 'publish')
-            except:
-                pass
+            for state in ['submit','show','process','publish']:
+                try:
+                    wft.doActionFor(obj, state)
+                except:
+                    pass
             try:
                 intid = getUtility(IIntIds).getId(self.context)
                 relatedVids = [RelationValue(intid)]

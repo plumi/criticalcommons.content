@@ -288,8 +288,11 @@ vocab_set['video_genre'] = (
          ('experimental', _(u'Experimental')),
          ('music_video', _(u'Music Video')),
          ('art', _(u'Art')),
-         ('news', _(u'News')),
+         ('newsreport', _(u'News Report')),
          ('music', _(u'Music')),
          ('speech', _(u'Speech')),
+         ('remix', _(u'Remix')),
+         ('title_sequence', _(u'Title Sequence')),
+         ('photography', _(u'Photography')),
         )
 
