@@ -8,7 +8,7 @@ from z3c.relationfield.schema import RelationList
 from z3c.relationfield.schema import RelationChoice
 from plone.formwidget.autocomplete import AutocompleteFieldWidget
 from plone.formwidget.contenttree import ObjPathSourceBinder
-
+from plumi.content.interfaces.plumivideo import IPlumiVideo
 
 from criticalcommons.content import _
 
@@ -27,7 +27,6 @@ class ICommentary(form.Schema):
             description=_(u"Start typing in the field below to search for clips to which this commentary should be linked."),
             default=[],
             value_type=RelationChoice(title=_(u"Related"),
-                                      #source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__))),
-                                      source=ObjPathSourceBinder(portal_types='PlumiVideo')),
+                                      source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__)),
             required=False,
         )
