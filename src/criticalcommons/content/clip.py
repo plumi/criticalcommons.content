@@ -19,7 +19,7 @@ class ClipExtender(object):
 
     fields = [
              MyStringField("filmName", required=True, searchable=True,
-		widget = StringWidget(label="Name of film", description="Name of the film that the clip comes from")),
+		widget = StringWidget(label="Name of original media", description="Name of the source work that the media comes from")),
              ]
 
     def __init__(self, context):
