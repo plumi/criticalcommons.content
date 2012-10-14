@@ -16,6 +16,7 @@ from plone.app.textfield.value import RichTextValue
 from zope.intid.interfaces import IIntIds
 from z3c.relationfield.relation import RelationValue
 from AccessControl.SecurityManagement import newSecurityManager
+from Products.CMFCore.interfaces import ISiteRoot
 
 
 class ICommentary(Interface):
@@ -24,6 +25,8 @@ class ICommentary(Interface):
     body = schema.Text(title=_(u"Body"))
 
 class CommentaryForm(form.Form):
+
+    grok.context(ISiteRoot)
     fields = field.Fields(ICommentary)
     ignoreContext = True
 

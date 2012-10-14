@@ -7,10 +7,11 @@ from plone.app.textfield import RichText
 from plone.namedfile.field import NamedImage
 from z3c.relationfield.schema import RelationList
 from z3c.relationfield.schema import RelationChoice
-from plone.formwidget.autocomplete import AutocompleteFieldWidget
+from plone.formwidget.autocomplete import AutocompleteMultiFieldWidget
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.namedfile.field import NamedImage
 from plumi.content.interfaces.plumivideo import IPlumiVideo
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
 from criticalcommons.content import _
 
@@ -29,7 +30,7 @@ class ILecture(form.Schema):
             description=_(u"The thumbnail image for the lecture"),
         )
 
-    form.widget(relatedItems=AutocompleteFieldWidget)
+    form.widget(relatedItems=AutocompleteMultiFieldWidget)
     relatedItems = RelationList(
             title=u"Clips",
             description=_(u"Select clips to create a playlist that accompanies this lecture. Start typing to search for relevant clips. You may include as many clips as you want. Clips may be added or deleted at any time."),
