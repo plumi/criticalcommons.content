@@ -11,6 +11,7 @@ from plone.formwidget.autocomplete import AutocompleteMultiFieldWidget
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.namedfile.field import NamedImage
 from plumi.content.interfaces.plumivideo import IPlumiVideo
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
 from criticalcommons.content import _
 
