@@ -15,12 +15,12 @@ from plumi.content.browser.forms import validate_image, validate_URI, validate_d
 class IClip(form.Schema):
     """ Publish clip form schema """
 
-    form.fieldset('categorize',
-                  label=u"Categorise",
-                  fields=['Genre', 'Tags',
-                          'Director', 'Producer', 'Email', 'Organisation',
-                          'ProductionCompany']
-                  )
+#    form.fieldset('categorize',
+#                  label=u"Categorise",
+#                  fields=['Genre', 'Tags',
+#                          'Director', 'Producer', 'Email', 'Organisation',
+#                          'ProductionCompany']
+#                  )
 
     Title = schema.TextLine(title=_(u"Title"),
                             max_length=160,
