@@ -8,6 +8,7 @@
             <role name="Reader"/>
             <role name="Editor"/>
             <role name="Contributor"/>
+            <role name="Manager"/>
             <role name="AdvancedUser"/>
         </permission>
         <permission name="criticalcommons.content: Can Download" acquire="False">
