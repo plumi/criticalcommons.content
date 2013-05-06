@@ -12,6 +12,16 @@ from plumi.content import plumiMessageFactory as _
 from plumi.content.browser.forms import get_video_genres, get_video_categories, get_video_countries
 from plumi.content.browser.forms import validate_image, validate_URI, validate_date, validate_address
 
+
+class InvalidDescription(schema.ValidationError):
+    __doc__ =  "Your media description is getting a little long. Please enter your critical commentary on the next page after uploading."
+
+
+def validatedescription(value):
+    if len(value)>=250:
+        raise InvalidDescription
+    return True
+
 class IClip(form.Schema):
     """ Publish clip form schema """
 
@@ -30,7 +40,9 @@ class IClip(form.Schema):
 
     Description = schema.Text(title=_(u"Media Description"),
                               required=True,
-                              description=_(u"Briefly describe the media and its critical context."),
+                              max_length=250,
+                              constraint=validatedescription, 
+                              description=_(u"Briefly describe the media in 250 characters."),
                               )
 
     #FIX: find a more native validation -eg provided by zope.schema
