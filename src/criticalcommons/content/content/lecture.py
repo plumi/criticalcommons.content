@@ -20,7 +20,8 @@ class ILecture(form.Schema):
     """
     
     fullDescription = RichText(
-            title=_(u"Lecture description"),
+            title=_(u"Lecture text"),
+            description=_(u"The text of your lecture"),
             required=True
         )
 
