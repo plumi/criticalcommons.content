@@ -15,6 +15,17 @@ from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from z3c.formwidget.query.widget import QuerySourceFieldCheckboxWidget 
 from criticalcommons.content import _
 
+
+class InvalidClips(schema.ValidationError):
+    __doc__ =  "Please select related clips"
+
+
+def validateclips(value):
+#    import pdb; pdb.set_trace()
+    #raise InvalidClips
+    return True
+
+
 class ILecture(form.Schema):
     """A lecture.
     """
@@ -25,18 +36,21 @@ class ILecture(form.Schema):
             required=True
         )
 
+    form.widget(relatedItems=QuerySourceFieldCheckboxWidget) 
+    #form.widget(relatedItems=AutocompleteMultiFieldWidget)
+    relatedItems = RelationList( 
+            title=u"Clips",
+            description=_(u"Type keywords to select media to accompany this lecture."),
+            default=[],
+            value_type=RelationChoice(title=_(u"Related"), 
+                       source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__)),
+            required=True,
+ #           constraint=validateclips 
+       )
+
     thumbnailImage = NamedImage(
             title=_(u"Lecture Thumbnail"),
             required=True,
             description=_(u"The thumbnail image for the lecture"),
         )
-    form.widget(relatedItems=QuerySourceFieldCheckboxWidget) 
-    #form.widget(relatedItems=AutocompleteMultiFieldWidget)
-    relatedItems = RelationList( 
-            title=u"Clips",
-            description=_(u"Select clips to create a playlist that accompanies this lecture. Start typing to search for relevant clips. You may include as many clips as you want. Clips may be added or deleted at any time."),
-            default=[],
-            value_type=RelationChoice(title=_(u"Related"), 
-                       source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__)),
-            required=False,
-        )
+
