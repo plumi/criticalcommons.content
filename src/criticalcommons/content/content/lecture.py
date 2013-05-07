@@ -16,15 +16,6 @@ from z3c.formwidget.query.widget import QuerySourceFieldCheckboxWidget
 from criticalcommons.content import _
 
 
-class InvalidClips(schema.ValidationError):
-    __doc__ =  "Please select related clips"
-
-
-def validateclips(value):
-#    import pdb; pdb.set_trace()
-    #raise InvalidClips
-    return True
-
 
 class ILecture(form.Schema):
     """A lecture.
@@ -45,7 +36,6 @@ class ILecture(form.Schema):
             value_type=RelationChoice(title=_(u"Related"), 
                        source=ObjPathSourceBinder(object_provides=IPlumiVideo.__identifier__)),
             required=True,
- #           constraint=validateclips 
        )
 
     thumbnailImage = NamedImage(
