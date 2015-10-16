@@ -51,7 +51,7 @@ class CommentaryForm(form.Form):
         home = pm.getHomeFolder()
         if not home: 
             return
-        title = self.request['form.widgets.title']
+        title = unicode(strip_tags(self.request['form.widgets.title']))[:200]
         body = self.request['form.widgets.body']
         existing = [i for i in self.context.getRelatedItems() if i.portal_type=='Commentary']
         dupes = [d for d in existing if d.Title() == title]
@@ -63,7 +63,7 @@ class CommentaryForm(form.Form):
             target_folder = home.commentaries
             new_id = target_folder.invokeFactory(id=str(DateTime.DateTime().millis()), type_name='Commentary', title=title)
             obj = target_folder[new_id]
-            obj.textCommentary = RichTextValue(unicode(strip_tags(body)), 'text/html', 'text/html', 'utf-8')
+            obj.textCommentary = RichTextValue(unicode(strip_tags(body))[:20000], 'text/plain', 'text/plain', 'utf-8')
             RelatedItems = self.context.getRelatedItems()
             RelatedItems.append(obj)
             self.context.setRelatedItems(RelatedItems)
