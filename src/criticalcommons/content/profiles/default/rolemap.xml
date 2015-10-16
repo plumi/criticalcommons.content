@@ -16,10 +16,8 @@
             <role name="AdvancedUser"/>
             <role name="Manager"/>
         </permission>
-        <permission name="criticalcommons.content: Add Commentary" acquire="True">
-            <role name="Authenticated"/>
+        <permission name="criticalcommons.content: Add Commentary" acquire="False">
             <role name="Editor"/>
-            <role name="Contributor"/>
             <role name="AdvancedUser"/>
             <role name="Manager"/>
         </permission>

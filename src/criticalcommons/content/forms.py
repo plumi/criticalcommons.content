@@ -17,6 +17,21 @@ from zope.intid.interfaces import IIntIds
 from z3c.relationfield.relation import RelationValue
 from AccessControl.SecurityManagement import newSecurityManager
 from Products.CMFCore.interfaces import ISiteRoot
+from HTMLParser import HTMLParser
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
 
 
 class ICommentary(Interface):
@@ -48,7 +63,7 @@ class CommentaryForm(form.Form):
             target_folder = home.commentaries
             new_id = target_folder.invokeFactory(id=str(DateTime.DateTime().millis()), type_name='Commentary', title=title)
             obj = target_folder[new_id]
-            obj.textCommentary = RichTextValue(unicode(body), 'text/html', 'text/html', 'utf-8')
+            obj.textCommentary = RichTextValue(unicode(strip_tags(body)), 'text/html', 'text/html', 'utf-8')
             RelatedItems = self.context.getRelatedItems()
             RelatedItems.append(obj)
             self.context.setRelatedItems(RelatedItems)
