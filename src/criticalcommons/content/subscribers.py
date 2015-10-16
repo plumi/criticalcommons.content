@@ -8,6 +8,23 @@ from Products.Archetypes.interfaces import IObjectInitializedEvent, IObjectEdite
 from zope.intid.interfaces import IIntIds
 from z3c.relationfield.relation import RelationValue
 from zope.component import getUtility
+from plone.app.textfield.value import RichTextValue
+
+from HTMLParser import HTMLParser
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
 
 
 def removeCommentary(obj, event):
@@ -67,6 +84,8 @@ def modifyCommentary(obj, event):
                         pass
             except:
                 pass
+        obj.title = strip_tags(obj.title)[:200]
+        obj.textCommentary = strip_tags(obj.textCommentary)
     except:
         pass
 def modifyPlumiVideo(obj, event):
