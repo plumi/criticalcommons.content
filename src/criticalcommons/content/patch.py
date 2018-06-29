@@ -95,6 +95,18 @@ class IClip(form.Schema):
                          )
 
 
+    CommentaryTitle = schema.TextLine(title=_(u"Commentary Title"),
+                            max_length=160,
+                            required=False,
+                            )
+
+    CommentaryDescription = schema.Text(title=_(u"Commentary"),
+                              required=False,
+                              max_length=560,
+                              description=_(u"You must associate commentary with your media in order for it to be publically available."),
+                              )
+
+
 def newcreate_object(self, context, data, uid, subject):
     context.invokeFactory('PlumiVideo', id=uid,
                            description=data['Description'],
@@ -106,7 +118,9 @@ def newcreate_object(self, context, data, uid, subject):
                            Categories=data['Topics'],
                            subject=data['Tags'] and data['Tags'].split(',') or '',
                            Director=data['Director'] or '',
-                           Distributor=data['Distributor'] or ''
+                           Distributor=data['Distributor'] or '',
+                           CommentaryTitle=data['CommentaryTitle'] or '',
+                           CommentaryDescription=data['CommentaryDescription'] or ''
                            )
 
 
@@ -118,3 +132,14 @@ VideoAddForm.schema = IClip
 VideoAddForm.updateWidgets = newUpdateWidgets
 VideoAddForm.create_object = newcreate_object
 VideoAddForm.label = u"Share Media"
+
+
+def scalarnewUpdateWidgets(self):
+    super(ScalarVideoAddForm, self).updateWidgets()
+
+from plumi.content.browser.forms import ScalarVideoAddForm
+ScalarVideoAddForm.schema = IClip
+ScalarVideoAddForm.updateWidgets = scalarnewUpdateWidgets
+ScalarVideoAddForm.create_object = newcreate_object
+ScalarVideoAddForm.label = u"Upload to Critical Commons"
+

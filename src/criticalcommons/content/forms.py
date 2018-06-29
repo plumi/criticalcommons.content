@@ -45,8 +45,9 @@ class CommentaryForm(form.Form):
     fields = field.Fields(ICommentary)
     ignoreContext = True
 
-    @button.buttonAndHandler(_(u'Save changes'), name='apply')
+    @button.buttonAndHandler(_(u'Save'), name='apply')
     def handleApply(self, action):
+#        import rpdb; rpdb.set_trace()
         pm = getToolByName(self.context, 'portal_membership')
         home = pm.getHomeFolder()
         if not home: 
@@ -77,6 +78,7 @@ class CommentaryForm(form.Form):
                 except:
                     pass
             try:
+#                import rpdb; rpdb.set_trace()
                 intid = getUtility(IIntIds).getId(self.context)
                 relatedVids = [RelationValue(intid)]
                 obj.relatedItems = relatedVids
